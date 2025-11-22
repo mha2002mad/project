@@ -1,7 +1,7 @@
 # project setup
 1. #### run "composer install"
 2. #### copy .env.example to .env and provide your database credentials and LOW_STOCK_REPORT_EMAIL in .env, use an empty DB or skip 5
-3. #### run "php artisan JWT:secret"
+3. #### run "php artisan kwt:secret"
 4. #### run "php artisan key:generate"
 5. #### run "php artisan migrate:fresh --seed"
 
@@ -14,4 +14,5 @@
 #### find the postman collection in the project's base folder, before using it create an environment for it
 
 - #### run "php artisan inventory:check_low_stock" to see low stock products
+- #### run "php artisan schedule:list" to see scheduled jobs along with their time frequency.
 - #### run "php artisan mail:daily-email-of-low-stock" to trigger the email(seen in storage/logs/laravel.log) and it self-triggers every day at 12:00.
