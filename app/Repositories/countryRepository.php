@@ -4,7 +4,6 @@ namespace App\Repositories;
 use App\Models\countries;
 use App\Repositories\Interfaces\countriesInterface;
 use Exception;
-use Illuminate\Support\Facades\DB;
 
 class CountryRepository implements countriesInterface
 {
@@ -36,54 +35,6 @@ class CountryRepository implements countriesInterface
         }
 
         countries::create($data)->save();
-    }
-
-    public function getStockLevelByCountry($id)
-    {
-        try {
-            $country = countries::findOrFail($id)->first()->get();
-        } catch (\Throwable $th) {
-            throw new Exception('country does not exist');
-        }
-        
-        $warehousesQuery = DB::table("warehouses")->where('country', '=', $id);
-
-        $data = DB::table('inventories')
-                ->joinSub($warehousesQuery, 'w', function($join){
-                    $join->on('w.warehouse_id', '=', 'inventories.warehouse');
-                })
-                ->join('products', 'products.product_id', '=', 'inventories.product')
-                ->select([
-                    'w.warehouse_id',
-                    'w.name as wName',
-                    'w.location as location',
-                    'products.product_id as pid',
-                    'products.name as pName',
-                    'inventories.quantity',
-                    'inventories.inventory_id'
-                ])
-                ->get();
-
-                    
-        if ($data->isEmpty()) {
-            return [];
-        }
-
-        return $data->groupBy('warehouse_id')->map(function ($w){
-            return [
-                'warehouseID' => $w->first()->warehouse_id,
-                'warehouseName' => $w->first()->wName,
-                'warehouseLocation' => $w->first()->location,
-                'inventories' => $w->map(function ($in){
-                    return [
-                        'inventoryID' => $in->inventory_id,
-                        'productID' => $in->pid,
-                        'productName' => $in->pName,
-                        'quantity' => $in->quantity,
-                    ];
-                })
-            ];
-        })->values();
     }
 
     public function deleteCountry($id)

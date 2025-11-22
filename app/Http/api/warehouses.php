@@ -31,7 +31,7 @@ class warehouses extends Controller
      */
     public function getWarehouses(Request $request)
     {
-        $validation = FacadesValidator::make($request->all(), [
+        $validation = FacadesValidator::make($request->query(), [
             "chunk" => 'regex:/^[0-9]+$/'
         ]);
 
@@ -41,7 +41,7 @@ class warehouses extends Controller
             $warehouses = $this->warehousesService->getAllWarehouses($request->query('chunk'));
             return response()->json($warehouses);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(400);
         }
     }
 
@@ -72,7 +72,7 @@ class warehouses extends Controller
             $this->warehousesService->createWarehouse($data);
             return response()->json(['message' => 'Warehouse created successfully.'])->setStatusCode(201);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(400);
         }
     }
 }

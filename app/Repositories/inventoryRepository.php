@@ -96,15 +96,6 @@ class inventoryRepository implements InterfacesInventoryInterface
         return $inventory->save();
     }
 
-    public function getGlobalLowStock()
-    {
-        $results = inventories::whereColumn('quantity', "<=", 'minimium_quantity')
-        ->with(['warehouse.country', 'product'])
-        ->get();
-
-        return $results;
-    }
-
     public function updateInventoryQuantity($id, $quntity)
     {
         try {

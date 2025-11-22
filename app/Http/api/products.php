@@ -19,7 +19,7 @@ class products extends Controller
     }
 
     /**
-     * Get a list of countries.
+     * Get a list of products.
      *
      * @group products
      *
@@ -43,7 +43,7 @@ class products extends Controller
             $products = $this->productsService->getAllProducts($request->query('chunk'));
             return response()->json($products);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to fetch products', 'message' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Failed to fetch products', 'message' => $e->getMessage()], 400);
         }
     }
 
@@ -82,33 +82,7 @@ class products extends Controller
             ]);
             return response()->json(['message' => 'Product created successfully'])->setStatusCode(201);
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()]);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(400);
         }
     }
-        /**
-         * get global inventory levels by product
-         * if you do not proivde a product, then all products will be assumed
-         * 
-         * @group inventory
-         * @Header Authorization Bearer required
-         * 
-         * @method GET
-         * 
-         * @queryParam product int required the product ID. ex: 45
-        */
-        public function GetProductLevelOnWarehouses(Request $request)
-        {
-            $validation = Validator::make($request->all(), [
-                'product' => 'required|regex:/^[0-9]*$/'
-            ]);
-            
-            $validation->validate();
-
-            try {
-                $result = $this->productsService->getProductLevelOnWarehouses($request->query('product'));
-                return response()->json(['message' => $result]);
-            } catch (\Throwable $th) {
-                return response()->json(['message' => $th->getMessage()]);
-            }
-        }
 }

@@ -15,7 +15,6 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/warehouses', [warehouses::class, 'getWarehouses']);
     Route::post('/warehouses', [warehouses::class, 'createWarehouse']);
 
-    Route::get('/view/plow', [\App\Http\api\products::class, 'GetProductLevelOnWarehouses']);
     Route::get('/products', [\App\Http\api\products::class, 'getProducts']);
     Route::post('/products', [\App\Http\api\products::class, 'createProduct']);
 

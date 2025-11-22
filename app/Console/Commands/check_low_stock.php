@@ -75,7 +75,19 @@ class check_low_stock extends Command
                 })->values()
             ];
         })->values();
-        $this->info($result);
+        
+        foreach ($result as $countryData){
+            echo "coutry: " . $countryData['country'];
+            echo "\n";
+            foreach ($countryData['warehouses'] as $warehouseData){
+                echo "warehouse location: " .  $warehouseData['warehouse_location'];
+                echo "\n";
+                foreach ($warehouseData['inventory'] as $item){
+                echo "product      " . $item['product'] . "  " . $item['sku'] . "  " . $item['current_quantity'] . "  " . $item['minimium_quantity'] . "  " . $item['supplier'] . "\n";
+                }
+            }
+            echo "\n\n\n";
+        }
         
         return COMMAND::SUCCESS;
     }

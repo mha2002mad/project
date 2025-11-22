@@ -1,31 +1,21 @@
 <?php
 namespace App\Services;
 
+use App\Repositories\InventoryViewRepository;
 use App\Services\interfaces\InventoryViewInterface;
 class InventoryViewService implements InventoryViewInterface {
-    protected CountriesServices $countriesServices;
-    protected WarehousesService $warehousesService;
-    protected inventoryServices $inventoryServices;
+    protected InventoryViewRepository $inventoryViewRepository;
 
-    public function __construct(WarehousesService $warehousesService, CountriesServices $countriesServices, inventoryServices $inventoryServices)
+    public function __construct(InventoryViewRepository $inventoryViewRepository)
     {
-        $this->countriesServices = $countriesServices;
-        $this->warehousesService = $warehousesService;
-        $this->inventoryServices = $inventoryServices;
+        $this->inventoryViewRepository = $inventoryViewRepository;
     }
 
     public function getGlobalLowStock(){
-        return $this->inventoryServices->getGlobalLowStock();
+        return $this->inventoryViewRepository->getGlobalLowStock();
     }
 
-    public function getStockLevelByCountryOrWarehouse(array $data){
-         if ($data['chunk'] != null) {
-            return $this->warehousesService->getAllWarehouseInventoryLevels($data['chunk']);
-        }
-        if ($data['country'] != null && $data['warehouse'] == null) {
-            return $this->countriesServices->getStockLevelByCountry($data['country']);
-        }
-        
-        return $this->warehousesService->getStockLevelInventories($data['warehouse']);
+    public function getGlobalView(array $data){
+        return $this->inventoryViewRepository->getGlobalView($data);
     }
 }

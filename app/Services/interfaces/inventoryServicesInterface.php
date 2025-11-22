@@ -13,7 +13,6 @@ interface inventoryServicesInterface
     public function inventoryExistsByProductAndWarehouse(string $product, string $warehouse);
     public function getInventoryByProductAndWarehouse(string $product, string $warehouse);
     public function updateInventoryProduct(array $data);
-    public function getGlobalLowStock();
     public function updateInventoryWarehouse(array $data);
     public function deleteInventory($id);
 }

@@ -1,19 +1,215 @@
-name: suppliers
+name: inventory
 description: ''
 endpoints:
   -
     custom: []
     httpMethods:
-      - GET
-    uri: api/suppliers
+      - POST
+    uri: api/inventory/newtransaction
     metadata:
       custom: []
-      groupName: suppliers
+      groupName: inventory
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Get a list of suppliers.'
-      description: 'if you do not specify chunk, all suppliers will be received'
+      title: 'create a new transaction.'
+      description: 'all of those parameters are required'
+      authenticated: false
+      deprecated: false
+    headers:
+      Authorization: 'Bearer required'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      product:
+        custom: []
+        name: product
+        description: 'the product ID. ex:2'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      warehouse:
+        custom: []
+        name: warehouse
+        description: 'the warehouse ID. ex:5'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      supplier:
+        custom: []
+        name: supplier
+        description: 'the supplier ID. ex:8'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      quantity:
+        custom: []
+        name: quantity
+        description: 'the number of the product to take in/out. ex:214'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      transaction_type:
+        custom: []
+        name: transaction_type
+        description: 'please select in if you are receiving or out if you are sending. ex:out'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      created_by:
+        custom: []
+        name: created_by
+        description: 'the admin who submited this transaction ID. ex:45'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      product: 17
+      warehouse: 17
+      supplier: 17
+      quantity: 17
+      transaction_type: consequatur
+      created_by: 17
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/inventory-transfer
+    metadata:
+      custom: []
+      groupName: inventory
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'transfer product among warehouses.'
+      description: 'all of those parameters are required'
+      authenticated: false
+      deprecated: false
+    headers:
+      Authorization: 'Bearer required'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      product:
+        custom: []
+        name: product
+        description: 'the product ID. ex:2'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      from_warehouse:
+        custom: []
+        name: from_warehouse
+        description: 'the warehouse we send from. ex:5'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      to_warehouse:
+        custom: []
+        name: to_warehouse
+        description: 'the warehouse we send to. ex:1'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      quantity:
+        custom: []
+        name: quantity
+        description: 'the number of the product to take in/out. ex:214'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      created_by:
+        custom: []
+        name: created_by
+        description: 'the admin who submited this transaction ID. ex:45'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      product: 17
+      from_warehouse: 17
+      to_warehouse: 17
+      quantity: 17
+      created_by: 17
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/inventory/globalview
+    metadata:
+      custom: []
+      groupName: inventory
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'View global inventory levels.'
+      description: 'please provide one of the parameters'
       authenticated: false
       deprecated: false
     headers:
@@ -23,33 +219,81 @@ endpoints:
     urlParameters: []
     cleanUrlParameters: []
     queryParameters:
-      chunk:
+      country:
         custom: []
-        name: chunk
-        description: 'Optional. Number of suppliers to return.'
+        name: country
+        description: 'Optional the country ID. ex:2'
         required: false
-        example: 15
+        example: 17
         type: integer
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      warehouse:
+        custom: []
+        name: warehouse
+        description: 'Optional the warehouse ID. ex:2'
+        required: false
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      product:
+        custom: []
+        name: product
+        description: 'the product ID. ex:2'
+        required: true
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      chunk: 15
+      country: 17
+      warehouse: 17
+      product: 17
     bodyParameters:
-      chunk:
+      product:
         custom: []
-        name: chunk
+        name: product
         description: 'Must match the regex /^[0-9]+$/.'
-        required: false
+        required: true
         example: '1562'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      warehouse:
+        custom: []
+        name: warehouse
+        description: 'Must match the regex /^[0-9]*$/.'
+        required: false
+        example: '15627'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      country:
+        custom: []
+        name: country
+        description: 'Must match the regex /^[0-9]*$/.'
+        required: false
+        example: '15627'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
     cleanBodyParameters:
-      chunk: '1562'
+      product: '1562'
+      warehouse: '15627'
+      country: '15627'
     fileParameters: []
     responses:
       -
@@ -69,15 +313,15 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - POST
-    uri: api/suppliers
+      - GET
+    uri: api/reports/lowstock
     metadata:
       custom: []
-      groupName: suppliers
+      groupName: inventory
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'create a supplier.'
+      title: 'Get low stock report.'
       description: ''
       authenticated: false
       deprecated: false
@@ -89,46 +333,19 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters:
-      name:
-        custom: []
-        name: name
-        description: 'the supplier name.'
-        required: true
-        example: consequatur
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      contact_info:
-        custom: []
-        name: contact_info
-        description: "the supplier's phone number. ex:000 0000 000 00 00"
-        required: true
-        example: consequatur
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      address:
-        custom: []
-        name: address
-        description: 'the supplier address.'
-        required: true
-        example: consequatur
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      name: consequatur
-      contact_info: consequatur
-      address: consequatur
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
     responseFields: []
     auth: []
     controller: null

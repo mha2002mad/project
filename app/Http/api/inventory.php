@@ -18,7 +18,7 @@ class inventory extends Controller
     }
 
     /**
-     * global product stock level view by country or warehouse or product.
+     * View global inventory levels.
      *
      * please provide one of the parameters
      * 
@@ -28,43 +28,40 @@ class inventory extends Controller
      *
      * @method GET
      * 
-     * @queryParam country int Optional the country name. ex:2
-     * @queryParam warehouse int Optional the warehouse name. ex:2
-     * @queryParam product int Optional the warehouse name. ex:2
+     * @queryParam country int Optional the country ID. ex:2
+     * @queryParam warehouse int Optional the warehouse ID. ex:2
+     * @queryParam product int required the product ID. ex:2
      */
     public function globalView(Request $request)
     {
         if(
-            !$request->filled('country') &&
-            !$request->filled('warehouse') &&
-            !$request->filled('chunk')
+            !$request->filled('product')
             ){
-                return response()->json(['message' => 'please provice fetch Size, country ID, or warehouse ID']);
+                return response()->json(['message' => 'please provice product ID'])->setStatusCode(422);
             }
         
-        $validated = Validator::make($request->all(), [
-            'chunk' => 'regex:/^[0-9]+$/',
-            'warehouse' => 'regex:/^[0-9]+$/',
-            'country' => 'regex:/^[0-9]+$/',
-        ]);
-
-        $validated->validate();
-
-
-        try {
-            $result = $this->inventoryViewService->getStockLevelByCountryOrWarehouse([
-                'country' => $request->query('country') ?? null,
-                'warehouse' => $request->query('warehouse') ?? null,
-                'chunk' => $request->query('chunk') ?? null
+        $validation = Validator::make($request->query(), [
+                'product' => 'required|regex:/^[0-9]+$/',
+                'warehouse' => 'nullable|regex:/^[0-9]*$/',
+                'country' => 'nullable|regex:/^[0-9]*$/'
             ]);
-            return response()->json(['data' => $result]);
-        } catch(Exception $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
+            
+            $validation->validate();
+
+            try {
+                $result = $this->inventoryViewService->getGlobalView([
+                    'product' => $request->query('product'),
+                    'country' => $request->query('country') ?? null,
+                    'warehouse' => $request->query('warehouse') ?? null
+                ]);
+                return response()->json(['message' => $result]);
+            } catch (\Throwable $th) {
+                return response()->json(['message' => $th->getMessage()])->setStatusCode(400);
+            }
     }
 
     /**
-     * see all products around the world which are in low stock.
+     *Get low stock report.
      *
      * @group inventory
      * @method GET

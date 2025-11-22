@@ -16,7 +16,7 @@ class InventoryMovements extends Controller
     }
 
     /**
-     * global product stock level view by country or warehouse or product.
+     * create a new transaction.
      * 
      *  all of those parameters are required
      *
@@ -55,12 +55,12 @@ class InventoryMovements extends Controller
         ]);
             return response()->json(['message' => 'Transaction completed successfully'])->setStatusCode(201);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(400);
         }
     }
 
     /**
-     * global product stock level view by country or warehouse or product.
+     * transfer product among warehouses.
      *
      *  all of those parameters are required
      *  
@@ -95,7 +95,7 @@ class InventoryMovements extends Controller
             ]);
             return response()->json(['success' => 'Inventory transfer completed successfully']);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(400);
         }
     }
 }

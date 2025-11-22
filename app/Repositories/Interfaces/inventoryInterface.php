@@ -15,7 +15,6 @@ interface InventoryInterface
     public function inventoryExistsByProductAndWarehouse($product, $warehouse);
     public function getInventoryByProductAndWarehouse($product, $warehouse);
     public function updateInventoryMinimiumQuantity($id, $quntity);
-    public function getGlobalLowStock();
     public function updateInventoryProduct($id, $product);
     public function updateInventoryWarehouse($id, $warehouse);
     public function deleteInventory($id);

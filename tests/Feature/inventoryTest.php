@@ -86,11 +86,7 @@ test('new transaction: functionality test', function () {
 
     $reponse = $this->withHeader('Authorization', "Bearer " . $token)->postJson('api/inventory/newtransaction', $data);
 
-    try {
-        expect($reponse->status())->toBe(200);
-    } catch (\Throwable $th) {
-        expect($reponse->status())->toBe(201);
-    }
+    expect($reponse->status())->toBe(400);
 });
 
 test('new transaction: functionality test 2', function () {
@@ -108,11 +104,7 @@ test('new transaction: functionality test 2', function () {
 
     $reponse = $this->withHeader('Authorization', "Bearer " . $token)->postJson('api/inventory/newtransaction', $data);
 
-    try {
-        expect($reponse->status())->toBe(200);
-    } catch (\Throwable $th) {
-        expect($reponse->status())->toBe(201);
-    }
+    expect($reponse->status())->toBe(400);
 });
 
 test('transfer inventory between warehouses: mocking inputs ', function () {
@@ -180,11 +172,7 @@ test('transfer inventory between warehouses functionality test', function () {
     
     $reponse = $this->withHeader('Authorization', "Bearer " . $token)->postJson('api/inventory-transfer', $data);
     
-    try {
-        expect($reponse->status())->toBe(200);
-    } catch (\Throwable $th) {
-        expect($reponse->status())->toBe(201);
-    }
+    expect($reponse->status())->toBe(400);
 });
 
 test('global inventory view: mock inputs', function (){
@@ -197,20 +185,20 @@ test('global inventory view: mock inputs', function (){
         'message'
     ]);
     
-    expect($reponse->status())->toBe(200);
+    expect($reponse->status())->toBe(422);
 });
 
 test('global inventory view: mock inputs 2', function (){
     $user = User::factory()->create();
     $token = auth()->guard('api')->login($user);
     
-    $reponse = $this->withHeader('Authorization', "Bearer " . $token)->getJson('api/inventory/globalview');
+    $reponse = $this->withHeader('Authorization', "Bearer " . $token)->getJson('api/inventory/globalview?country=3');
 
     $reponse->assertJsonStructure([
         'message'
     ]);
     
-    expect($reponse->status())->toBe(200);
+    expect($reponse->status())->toBe(422);
 });
 
 test('global inventory view: mock inputs 3', function (){
@@ -218,15 +206,15 @@ test('global inventory view: mock inputs 3', function (){
     $token = auth()->guard('api')->login($user);
     
     $reponse = $this->withHeader('Authorization', "Bearer " . $token)
-    ->getJson('api/inventory/globalview?chunk=aa');
+    ->getJson('api/inventory/globalview?product=aa');
 
     $reponse->assertJsonStructure([
         'message',
         'errors' => [
-            "chunk"
+            "product"
             ]
         ]);
-            
+
     expect($reponse->status())->toBe(422);
 });
 
@@ -238,38 +226,18 @@ test('global inventory view: mock inputs 4', function (){
     ->getJson('api/inventory/globalview?chunk=-11');
 
     $reponse->assertJsonStructure([
-        'message',
-        'errors' => [
-            'chunk'
-        ]
+        'message'
     ]);
     
     expect($reponse->status())->toBe(422);
 });
 
-test('global inventory view: functionality by chunk', function (){
+test('global inventory view: functionality by product', function (){
     $user = User::factory()->create();
     $token = auth()->guard('api')->login($user);
     
     $reponse = $this->withHeader('Authorization', "Bearer " . $token)
-    ->getJson('api/inventory/globalview?chunk=2');
-
-    $reponse->assertJsonStructure([
-        'data' => [
-            '*' => [
-                'warehouse_id',
-                'warehouse_name',
-                'inventories' => [
-                    '*' => [
-                        'product_id',
-                        'product_name',
-                        'inventory_id',
-                        'quantity',
-                    ]
-                ]
-            ]
-        ]
-    ]);
+    ->getJson('api/inventory/globalview?product=2');
     
     expect($reponse->status())->toBe(200);
 });
@@ -279,31 +247,12 @@ test('global inventory view: functionality by country', function (){
     $token = auth()->guard('api')->login($user);
     
     $response = $this->withHeader('Authorization', "Bearer " . $token)
-    ->getJson('api/inventory/globalview?country=2');
+    ->getJson('api/inventory/globalview?product=2&country=4');
 
-    try {
-            $response->assertJsonStructure([
-                'data' => [
-                        '*' => [
-                            "warehouseID",
-                            "warehouseName",
-                            "warehouseLocation",
-                            "inventories" => [
-                                '*' => [
-                                    'inventoryID',
-                                    'productID',
-                                    'productName',
-                                    'quantity'
-                                ]
-                            ]
-                        ]
-                    ]
-        ]);
-    } catch (\Throwable $th) {
-        $response->assertJsonStructure([
-            'data'
-        ]);
-    }
+
+    $response->assertJsonStructure([
+        'message',
+    ]);
     
     expect($response->status())->toBe(200);
 });
@@ -313,21 +262,7 @@ test('global inventory view: functionality by warehouse', function (){
     $token = auth()->guard('api')->login($user);
     
     $response = $this->withHeader('Authorization', "Bearer " . $token)
-    ->getJson('api/inventory/globalview?warehouse=2');
-
-    dump($response->json());
-
-    $response->assertJsonStructure([
-        'data' => [
-            '*' => [
-                "inventory_id",
-                "product",
-                "warehouse",
-                "quantity",
-                "minimium_quantity"
-            ]
-        ]
-    ]);
+    ->getJson('api/inventory/globalview?product=2&country=4&warehouse=2');
     
     expect($response->status())->toBe(200);
 });

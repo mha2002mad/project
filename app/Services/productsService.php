@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Repositories\productsRepository;
 use App\Services\interfaces\productsServiceInterface;
+use Exception;
 
 class ProductsService  implements productsServiceInterface {
     protected $productsRepository;
@@ -17,10 +18,6 @@ class ProductsService  implements productsServiceInterface {
 
     public function getProductById($id) {
         return $this->productsRepository->getProductById($id);
-    }
-
-    public function getProductLevelOnWarehouses($id){
-        return $this->productsRepository->getProductLevelOnWarehouses($id);
     }
 
     public function createProduct(array $data) {

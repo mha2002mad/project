@@ -9,6 +9,7 @@ use App\Repositories\Interfaces\productsInterface;
 use App\Repositories\Interfaces\suppliersInterface;
 use App\Repositories\Interfaces\usersInterface;
 use App\Repositories\Interfaces\warehousesInterface;
+use App\Repositories\InventoryViewRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\interfaces\CountryServicesInterface;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
             productsInterface::class => \App\Repositories\productsRepository::class,
             suppliersInterface::class => \App\Repositories\suppliersRepository::class,
             InventoryInterface::class => \App\Repositories\inventoryRepository::class,
+            InventoryViewInterface::class => InventoryViewRepository::class,
             inventoryTransactionsInterface::class => \App\Repositories\inventoryTransactionsRepository::class,
         ];
 

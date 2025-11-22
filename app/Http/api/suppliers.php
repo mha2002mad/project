@@ -31,7 +31,7 @@ class suppliers extends Controller
      */
     public function getSuppliers(Request $request)
     {
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make($request->query(), [
             "chunk" => 'regex:/^[0-9]+$/'
         ]);
 
@@ -41,7 +41,7 @@ class suppliers extends Controller
             $suppliers = $this->suppliersService->getAllSuppliers($request->query('chunk'));
             return response()->json($suppliers);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(400);
         }
     }
 
@@ -76,7 +76,7 @@ class suppliers extends Controller
             ]);
             return response()->json(['message' => 'supplier created successfully'])->setStatusCode(201);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(400);
         }
     }
 }

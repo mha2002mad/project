@@ -17,10 +17,6 @@ class CountriesServices implements CountryServicesInterface
         return $this->countriesRepository->createCountry($data);
     }
 
-    public function getStockLevelByCountry($id){
-        return $this->countriesRepository->getStockLevelByCountry($id);
-    }
-
     public function getAllCountries($chunk)
     {
         return $this->countriesRepository->getAllCountries($chunk);

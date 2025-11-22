@@ -84,21 +84,17 @@
                     <a href="#inventory">inventory</a>
                 </li>
                                     <ul id="tocify-subheader-inventory" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="inventory-GETapi-view-plow">
-                                <a href="#inventory-GETapi-view-plow">get global inventory levels by product
-if you do not proivde a product, then all products will be assumed</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="inventory-POSTapi-inventory-newtransaction">
-                                <a href="#inventory-POSTapi-inventory-newtransaction">global product stock level view by country or warehouse or product.</a>
+                                                    <li class="tocify-item level-2" data-unique="inventory-POSTapi-inventory-newtransaction">
+                                <a href="#inventory-POSTapi-inventory-newtransaction">create a new transaction.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="inventory-POSTapi-inventory-transfer">
-                                <a href="#inventory-POSTapi-inventory-transfer">global product stock level view by country or warehouse or product.</a>
+                                <a href="#inventory-POSTapi-inventory-transfer">transfer product among warehouses.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="inventory-GETapi-inventory-globalview">
-                                <a href="#inventory-GETapi-inventory-globalview">global product stock level view by country or warehouse or product.</a>
+                                <a href="#inventory-GETapi-inventory-globalview">View global inventory levels.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="inventory-GETapi-reports-lowstock">
-                                <a href="#inventory-GETapi-reports-lowstock">see all products around the world which are in low stock.</a>
+                                <a href="#inventory-GETapi-reports-lowstock">Get low stock report.</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -108,7 +104,7 @@ if you do not proivde a product, then all products will be assumed</a>
                 </li>
                                     <ul id="tocify-subheader-products" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="products-GETapi-products">
-                                <a href="#products-GETapi-products">Get a list of countries.</a>
+                                <a href="#products-GETapi-products">Get a list of products.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="products-POSTapi-products">
                                 <a href="#products-POSTapi-products">create a product.</a>
@@ -160,7 +156,7 @@ if you do not proivde a product, then all products will be assumed</a>
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: November 21, 2025</li>
+        <li>Last updated: November 22, 2025</li>
     </ul>
 </div>
 
@@ -530,189 +526,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
     
 
-                                <h2 id="inventory-GETapi-view-plow">get global inventory levels by product
-if you do not proivde a product, then all products will be assumed</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-GETapi-view-plow">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/view/plow?product=17" \
-    --header "Authorization: Bearer required" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"product\": \"15627\"
-}"
-</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/view/plow"
-);
-
-const params = {
-    "product": "17",
-};
-Object.keys(params)
-    .forEach(key =&gt; url.searchParams.append(key, params[key]));
-
-const headers = {
-    "Authorization": "Bearer required",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "product": "15627"
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-view-plow">
-            <blockquote>
-            <p>Example response (401):</p>
-        </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-view-plow" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-view-plow"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-view-plow"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-GETapi-view-plow" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-view-plow">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-GETapi-view-plow" data-method="GET"
-      data-path="api/view/plow"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-view-plow', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-view-plow"
-                    onclick="tryItOut('GETapi-view-plow');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-view-plow"
-                    onclick="cancelTryOut('GETapi-view-plow');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-view-plow"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/view/plow</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Authorization"                data-endpoint="GETapi-view-plow"
-               value="Bearer required"
-               data-component="header">
-    <br>
-<p>Example: <code>Bearer required</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-view-plow"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-view-plow"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
-                                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="product"                data-endpoint="GETapi-view-plow"
-               value="17"
-               data-component="query">
-    <br>
-<p>the product ID. ex: 45 Example: <code>17</code></p>
-            </div>
-                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="product"                data-endpoint="GETapi-view-plow"
-               value="15627"
-               data-component="body">
-    <br>
-<p>Must match the regex /^[0-9]*$/. Example: <code>15627</code></p>
-        </div>
-        </form>
-
-                    <h2 id="inventory-POSTapi-inventory-newtransaction">global product stock level view by country or warehouse or product.</h2>
+                                <h2 id="inventory-POSTapi-inventory-newtransaction">create a new transaction.</h2>
 
 <p>
 </p>
@@ -928,7 +742,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
-                    <h2 id="inventory-POSTapi-inventory-transfer">global product stock level view by country or warehouse or product.</h2>
+                    <h2 id="inventory-POSTapi-inventory-transfer">transfer product among warehouses.</h2>
 
 <p>
 </p>
@@ -1130,7 +944,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
-                    <h2 id="inventory-GETapi-inventory-globalview">global product stock level view by country or warehouse or product.</h2>
+                    <h2 id="inventory-GETapi-inventory-globalview">View global inventory levels.</h2>
 
 <p>
 </p>
@@ -1148,9 +962,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"chunk\": \"1562\",
-    \"warehouse\": \"1562\",
-    \"country\": \"1562\"
+    \"product\": \"1562\",
+    \"warehouse\": \"15627\",
+    \"country\": \"15627\"
 }"
 </code></pre></div>
 
@@ -1175,9 +989,9 @@ const headers = {
 };
 
 let body = {
-    "chunk": "1562",
-    "warehouse": "1562",
-    "country": "1562"
+    "product": "1562",
+    "warehouse": "15627",
+    "country": "15627"
 };
 
 fetch(url, {
@@ -1300,7 +1114,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="17"
                data-component="query">
     <br>
-<p>Optional the country name. ex:2 Example: <code>17</code></p>
+<p>Optional the country ID. ex:2 Example: <code>17</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>warehouse</code></b>&nbsp;&nbsp;
@@ -1312,28 +1126,28 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="17"
                data-component="query">
     <br>
-<p>Optional the warehouse name. ex:2 Example: <code>17</code></p>
+<p>Optional the warehouse ID. ex:2 Example: <code>17</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="product"                data-endpoint="GETapi-inventory-globalview"
                value="17"
                data-component="query">
     <br>
-<p>Optional the warehouse name. ex:2 Example: <code>17</code></p>
+<p>the product ID. ex:2 Example: <code>17</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>chunk</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="chunk"                data-endpoint="GETapi-inventory-globalview"
+                              name="product"                data-endpoint="GETapi-inventory-globalview"
                value="1562"
                data-component="body">
     <br>
@@ -1346,10 +1160,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="warehouse"                data-endpoint="GETapi-inventory-globalview"
-               value="1562"
+               value="15627"
                data-component="body">
     <br>
-<p>Must match the regex /^[0-9]+$/. Example: <code>1562</code></p>
+<p>Must match the regex /^[0-9]*$/. Example: <code>15627</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>country</code></b>&nbsp;&nbsp;
@@ -1358,14 +1172,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="country"                data-endpoint="GETapi-inventory-globalview"
-               value="1562"
+               value="15627"
                data-component="body">
     <br>
-<p>Must match the regex /^[0-9]+$/. Example: <code>1562</code></p>
+<p>Must match the regex /^[0-9]*$/. Example: <code>15627</code></p>
         </div>
         </form>
 
-                    <h2 id="inventory-GETapi-reports-lowstock">see all products around the world which are in low stock.</h2>
+                    <h2 id="inventory-GETapi-reports-lowstock">Get low stock report.</h2>
 
 <p>
 </p>
@@ -1509,7 +1323,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
     
 
-                                <h2 id="products-GETapi-products">Get a list of countries.</h2>
+                                <h2 id="products-GETapi-products">Get a list of products.</h2>
 
 <p>
 </p>

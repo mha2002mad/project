@@ -1,19 +1,19 @@
-name: products
+name: suppliers
 description: ''
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/products
+    uri: api/suppliers
     metadata:
       custom: []
-      groupName: products
+      groupName: suppliers
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Get a list of countries.'
-      description: ''
+      title: 'Get a list of suppliers.'
+      description: 'if you do not specify chunk, all suppliers will be received'
       authenticated: false
       deprecated: false
     headers:
@@ -26,7 +26,7 @@ endpoints:
       chunk:
         custom: []
         name: chunk
-        description: 'Optional. Number of products to return.'
+        description: 'Optional. Number of suppliers to return.'
         required: false
         example: 15
         type: integer
@@ -46,7 +46,7 @@ endpoints:
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         deprecated: false
     cleanBodyParameters:
       chunk: '1562'
@@ -70,14 +70,14 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/products
+    uri: api/suppliers
     metadata:
       custom: []
-      groupName: products
+      groupName: suppliers
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'create a product.'
+      title: 'create a supplier.'
       description: ''
       authenticated: false
       deprecated: false
@@ -93,7 +93,7 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'the product name. ex:shoes'
+        description: 'the supplier name.'
         required: true
         example: consequatur
         type: string
@@ -101,10 +101,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      sku:
+      contact_info:
         custom: []
-        name: sku
-        description: 'the unique inventory product identifier code. ex:fscc_23232_r'
+        name: contact_info
+        description: "the supplier's phone number. ex:000 0000 000 00 00"
         required: true
         example: consequatur
         type: string
@@ -112,45 +112,21 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      description:
+      address:
         custom: []
-        name: description
-        description: 'product description. ex:shoes size 45 colour black'
-        required: true
-        example: 'Dolores dolorum amet iste laborum eius est dolor.'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: 'if the product is ready for sales type active if not inactive. ex:inactive'
+        name: address
+        description: 'the supplier address.'
         required: true
         example: consequatur
         type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      price:
-        custom: []
-        name: price
-        description: 'if the product is ready for sales type active if not inactive. ex:inactive'
-        required: true
-        example: 11613.31890586
-        type: number
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
       name: consequatur
-      sku: consequatur
-      description: 'Dolores dolorum amet iste laborum eius est dolor.'
-      status: consequatur
-      price: 11613.31890586
+      contact_info: consequatur
+      address: consequatur
     fileParameters: []
     responses: []
     responseFields: []

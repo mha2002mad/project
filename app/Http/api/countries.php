@@ -26,11 +26,12 @@ class countries extends Controller
  * @group Countries
  * @method GET
  * @header Authorization Bearer required 
- * @queryParam chunk integer Optional. Number of countries to return. Example: 15
+ * @QueryParam chunk integer Optional. Number of countries to return. Example: 15
+ * 
  */
     public function getCountries(Request $request)
     {
-        $validated = Validator::make($request->all(), [
+        $validated = Validator::make($request->query(), [
             'chunk' => 'regex:/^[0-9]+$/'
         ]);
 
@@ -39,7 +40,7 @@ class countries extends Controller
         try {
             $countries = $this->countriesServices->getAllCountries($request->query('chunk'));
         } catch (\Throwable $th) {
-            return response()->json(['error' => $th->getMessage()]);
+            return response()->json(['error' => $th->getMessage()])->setStatusCode(400);
         }
         
         return response()->json($countries, 200);
@@ -52,8 +53,8 @@ class countries extends Controller
      * @header Authorization Bearer required 
      * @method POST
      * 
-     * @bodyParam name string required the country name. ex:spain
-     * @bodyParam code string required the country code can nott have more than 2 letters. ex:sp
+     * @BodyParam name string required the country name. ex:spain
+     * @BodyParam code string required the country code can nott have more than 2 letters. ex:sp
      */
     public function createCountry(Request $request)
     {

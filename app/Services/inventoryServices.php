@@ -67,10 +67,6 @@ class inventoryServices implements inventoryServicesInterface
         return $this->inventoryRepository->updateInventoryWarehouse($data['id'], $data['warehouse']);
     }
 
-    public function getGlobalLowStock(){
-        return $this->inventoryRepository->getGlobalLowStock();
-    }
-
     public function deleteInventory($id)
     {
         return $this->inventoryRepository->deleteInventory($id);
