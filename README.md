@@ -7,7 +7,7 @@
 
 #### enter "php artisan test" to run the tests
 
-#### before using the API, register via "/api/register" and copy the JWT token and use it in form of Authorization: Bearer {token} in other endpoints
+#### when using the API, register via "/api/register" in postman or scribe and copy the JWT token and use it in request Headers in form of Authorization: Bearer {token} in other endpoints and all other endpoint need that header to pass though authentication.
 
 #### refer to "http://basepath:port/docs" to see scribe API documentation. use queryparams with get requests and bodyparams with post requests
 
